@@ -40,7 +40,7 @@ function ContentQuizzs({ moduleId }) {
                   <div className="card-body d-flex flex-column align-items-center justify-content-center">
                     <h5 className="card-title">{q.title}</h5>
                     <Link
-                      to={`/quizz/${q.moduleId}/${q.id}`}
+                      to={`/etudiant/quizz/${q.moduleId}/${q.id}`}
                       className="btn btn-primary mt-2"
                     >
                       Commencer quizz

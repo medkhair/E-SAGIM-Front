@@ -48,7 +48,7 @@ function SideBar({ modules }) {
     <>
       <div className="sidebar pe-4 pb-3">
         <nav className="navbar bg-light navbar-light">
-          <Link to="/etudiant/" className="navbar-brand mx-4 mb-3">
+          <Link to="/" className="navbar-brand mx-4 mb-3">
             <h3 className="text-primary">
               <i className="fa fa-hashtag me-2"></i>E-SAGIM
             </h3>
@@ -182,6 +182,9 @@ function SideBar({ modules }) {
             {/* Admin */}
             {user.role === "admin" && (
               <>
+                <Link to="/admin/" className="nav-item nav-link active">
+                  <i className="fa fa-tachometer-alt me-2"></i>Dashboard
+                </Link>
                 <Link to="/admin/utilisateurs" className="nav-item nav-link">
                   <i className="fa fa-users me-2"></i>Utilisateurs
                 </Link>

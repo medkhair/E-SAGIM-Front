@@ -1,9 +1,9 @@
 // Modules
 export const modules = [
-  { id: 1, name: "Algorithmique" },
-  { id: 2, name: "Francais" },
-  { id: 3, name: "Archithecture" },
-  { id: 4, name: "Anglais" }
+  { id: 1, name: "Algorithmique", filiereId: [1,2] },
+  { id: 2, name: "Francais", filiereId: [1,2] },
+  { id: 3, name: "Archithecture", filiereId: [3,4] },
+  { id: 4, name: "Anglais", filiereId: [3,4] }
 ];
 
 // Cours (each course links to a module by moduleId)
@@ -110,33 +110,68 @@ export const calendrier = [
   {
     day: "Lundi",
     courses: [
-      { heure: "08:00 - 10:00", module: 1, salle: "A1" }, // Algorithmique
-      { heure: "10:15 - 12:15", module: 2, salle: "B2" }   // Francais
+      { heure: "08:00 - 10:00", module: 1, salle: "A1" },
+      { heure: "10:15 - 12:15", module: 2, salle: "B2" } 
     ]
   },
   {
     day: "Mardi",
     courses: [
-      { heure: "09:00 - 11:00", module: 4, salle: "C3" }   // Archithecture
+      { heure: "09:00 - 11:00", module: 4, salle: "C3" } 
     ]
   },
   {
     day: "Mercredi",
     courses: [
-      { heure: "08:00 - 10:00", module: 1, salle: "A1" },  // Algorithmique
-      { heure: "13:00 - 15:00", module: 2, salle: "B2" }   // Francais
+      { heure: "08:00 - 10:00", module: 1, salle: "A1" }, 
+      { heure: "13:00 - 15:00", module: 2, salle: "B2" }  
     ]
   },
   {
     day: "Jeudi",
     courses: [
-      { heure: "10:00 - 12:00", module: 3, salle: "C3" }   // Archithecture
+      { heure: "10:00 - 12:00", module: 3, salle: "C3" } 
     ]
   },
   {
     day: "Vendredi",
     courses: [
-      { heure: "08:00 - 10:00", module: 1, salle: "A1" }   // Algorithmique
+      { heure: "08:00 - 10:00", module: 1, salle: "A1" }
+    ]
+  }
+];
+
+export const calendrier2 = [
+  {
+    day: "Lundi",
+    courses: [
+      { heure: "18:00 - 20:00", module: 1, salle: "A1" },
+      { heure: "20:15 - 21:30", module: 2, salle: "B2" } 
+    ]
+  },
+  {
+    day: "Mardi",
+    courses: [
+      { heure: "18:00 - 20:00", module: 4, salle: "C3" } 
+    ]
+  },
+  {
+    day: "Mercredi",
+    courses: [
+      { heure: "18:00 - 20:00", module: 1, salle: "A1" }, 
+      { heure: "20:15 - 21:30", module: 2, salle: "B2" }  
+    ]
+  },
+  {
+    day: "Jeudi",
+    courses: [
+      { heure: "20:15 - 21:30", module: 3, salle: "C3" } 
+    ]
+  },
+  {
+    day: "Vendredi",
+    courses: [
+      { heure: "18:00 - 20:00", module: 1, salle: "A1" }
     ]
   }
 ];
@@ -175,8 +210,37 @@ export const etudiant = {
   telephone: "+213600000000",
   motPasse: "motdepasse123",
   role: "etudiant",
-  img: "../src/img/user.jpg"
+  img: "../src/img/user.jpg",
+  filiereId: 1
 };
+export const etudiant2 = {
+  id: 2,
+  codeAppogee: "E12345679",
+  nom: "banel",
+  prenom: "Mohammed",
+  image: "img/user.jpg",
+  email: "souiba.mohammed@example.com",
+  telephone: "+213600000000",
+  motPasse: "motdepasse123",
+  role: "etudiant",
+  img: "../src/img/user.jpg",
+  filiereId: 2
+};
+export const etudiant3 = {
+  id: 3,
+  codeAppogee: "E1234567899",
+  nom: "Souiba",
+  prenom: "Ahmed",
+  image: "img/user.jpg",
+  email: "souiba.mohammed@example.com",
+  telephone: "+213600000000",
+  motPasse: "motdepasse123",
+  role: "etudiant",
+  img: "../src/img/user.jpg",
+  filiereId: 4
+};
+
+
 
 // Utilisateur Prof
 export const prof = {
@@ -190,7 +254,21 @@ export const prof = {
   motPasse: "motdepasse123",
   role: "prof",
   img: "../src/img/user.jpg",
-  modules: [1, 3]
+  modules: [1, 3],
+  filieres: [1, 2]
+};
+export const prof2 = {
+  id: 2,
+  codeProf: "P123456878",
+  nom: "El Amri",
+  prenom: "Fatima",
+  image: "../src/img/user.jpg",
+  email: "ahmed.amri@example.com",
+  telephone: "+213600000000",
+  motPasse: "motdepasse123",
+  role: "prof",
+  img: "../src/img/user.jpg",
+  modules: [2, 4]
 };
 
 // Utilisateur Admin
@@ -227,5 +305,36 @@ export const users = [
   {
     id: 2,
     user: etudiant
+  },
+  {
+    id: 3,
+    user: etudiant2
+  },
+  {
+    id: 3,
+    user: etudiant3
+  },
+  {
+    id: 4,
+    user: prof2
   }
 ];
+
+
+export const filieres = [
+  { id: 1, name: "TSDI1-JOUR", idCalendrier: 1 },
+  { id: 2, name: "TSDI1-SOIR",idCalendrier: 2 },
+  { id: 3, name: "TSDI2-JOUR", idCalendrier: 1 },
+  { id: 4, name: "TSDI2-SOIR", idCalendrier: 2 }
+];
+
+
+const calendriers = [{
+  id: 1,
+  name: "Calendrier TSDI1-JOUR",
+  courses: calendrier
+}, {
+  id: 2,
+  name: "Calendrier TSDI1-SOIR",
+  courses: calendrier2
+}]

@@ -12,7 +12,7 @@ import ProfilePage from './pages/Shared/ProfilePage.jsx';
 import Login from './pages/Etudiant/Login.jsx';
 
 
-// Prof pages (à créer si besoin)
+// Prof pages
 
 import HomeProf from './pages/Prof/Home.jsx';
 import LoginProf from './pages/Prof/Login.jsx';
@@ -23,12 +23,20 @@ import QuizzModulesProf from './pages/Prof/QuizzModules.jsx';
 import CalendarPageProf from './pages/Prof/CalendarPage.jsx';
 import AnnoncementsPageProf from './pages/Prof/AnnoncementsPage.jsx';
 
+
+// Admin
+import LoginAdmin from './pages/Admin/Login.jsx';
+import HomeAdmin from './pages/Admin/Home.jsx';
+import UsersPage from './pages/Admin/UsersPage.jsx';
+import StudentsManagementPage from './pages/Admin/StudentsManagementPage.jsx';
+import ProfsManagementPage from './pages/Admin/ProfsManagementPage.jsx';
+import ModulesManagement from './pages/Admin/ModulesManagementPage.jsx';
+import BranchesManagementPage from './pages/Admin/BranchesManagementPage.jsx';
+import CalendarManagement from './pages/Admin/CalendarManagementPage.jsx';
+import AnnoncementsPageAdmin from './pages/Admin/AnnoncementsPage.jsx';
+
+
 /*
-// Prof pages (à créer si besoin)
-import ProfCourses from './pages/Prof/Courses.jsx';
-import ProfQuizzs from './pages/Prof/Quizzs.jsx';
-import ProfCalendarPage from './pages/Prof/CalendarPage.jsx';
-import ProfAnnoncementsPage from './pages/Prof/AnnoncementsPage.jsx';
 
 // Admin pages (à créer si besoin)
 import AdminUtilisateurs from './pages/Admin/Utilisateurs.jsx';
@@ -84,7 +92,7 @@ function App() {
           {/* Login */}
           <Route path="/etudiant/login" element={<Login />} />
           <Route path="/prof/login" element={<LoginProf />} />
-
+          <Route path="/admin/login" element={<LoginAdmin />} />
           {/* Etudiant */}
           <Route
             path="/etudiant/*"
@@ -119,54 +127,32 @@ function App() {
                   <Route path="/calendrier" element={<CalendarPageProf />} />
                   <Route path="/announcements" element={<AnnoncementsPageProf />} />
                   <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="*" element={<HomeProf />} />
-                  {/* Ajouter d'autres routes pour les pages du professeur ici */}
-                  {/* <Route path="cours" element={<ProfCourses />} />
-                  <Route path="quizz" element={<ProfQuizzs />} />
-                  <Route path="calendrier" element={<ProfCalendarPage />} />
-                  <Route path="announcements" element={<ProfAnnoncementsPage />} /> */}   
+                  <Route path="*" element={<HomeProf />} />   
                 </Routes>
               </RequireAuth>
             }
           />
-          
+          {/* Admin */}
 
-          {/* Prof 
-          <Route
-            path="/prof/*"
-            element={
-              <RequireAuth>
-                <Routes>
-                  <Route path="/" element={<ProfCourses />} />
-                  <Route path="cours" element={<ProfCourses />} />
-                  <Route path="quizz" element={<ProfQuizzs />} />
-                  <Route path="calendrier" element={<ProfCalendarPage />} />
-                  <Route path="announcements" element={<ProfAnnoncementsPage />} />
-                  <Route path="*" element={<ProfCourses />} />
-                </Routes>
-              </RequireAuth>
-            }
-          />
-            */}
-          {/* Admin 
           <Route
             path="/admin/*"
             element={
-              <RequireAuth>
+              <RequireAuth allowedRoles={["admin"]}>
                 <Routes>
-                  <Route path="/" element={<AdminUtilisateurs />} />
-                  <Route path="utilisateurs" element={<AdminUtilisateurs />} />
-                  <Route path="modules" element={<AdminModules />} />
-                  <Route path="filieres" element={<AdminFilieres />} />
-                  <Route path="calendrier" element={<AdminCalendarPage />} />
-                  <Route path="announcements" element={<AdminAnnoncementsPage />} />
-                  <Route path="*" element={<AdminUtilisateurs />} />
+                  <Route path="/" element={<HomeAdmin />} />
+                  <Route path="/utilisateurs" element={<UsersPage />} />
+                  <Route path="/etudiants" element={<StudentsManagementPage />} />
+                  <Route path="/profs" element={<ProfsManagementPage />} />
+                  <Route path="/modules" element={<ModulesManagement />} />
+                  <Route path="/filieres" element={<BranchesManagementPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/calendrier" element={<CalendarManagement />} />
+                  <Route path="/announcements" element={<AnnoncementsPageAdmin />} />
+                  <Route path="*" element={<HomeAdmin />} />
                 </Routes>
               </RequireAuth>
             }
           />
-              */}
-          {/* Redirection dynamique selon le rôle */}
           <Route path="*" element={<RoleRedirect />} />
         </Routes>
       </BrowserRouter>
