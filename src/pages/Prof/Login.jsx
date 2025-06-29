@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LoginComponent from "../../components/Etudiant/LoginComponent";
+import LoginComponent from "../../components/Prof/LoginComponent";
 import { useNavigate } from "react-router-dom";
 import { etudiant } from "../../services/data";
 

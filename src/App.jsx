@@ -8,13 +8,20 @@ import QuizzModules from './pages/Etudiant/QuizzModules.jsx';
 import QuizzPage from './pages/Etudiant/QuizzPage.jsx';
 import CalendarPage from './pages/Etudiant/CalendarPage.jsx';
 import AnnoncementsPage from './pages/Etudiant/AnnoncementsPage.jsx';
-import ProfilePage from './pages/Etudiant/ProfilePage.jsx';
+import ProfilePage from './pages/Shared/ProfilePage.jsx';
 import Login from './pages/Etudiant/Login.jsx';
 
 
 // Prof pages (à créer si besoin)
 
 import HomeProf from './pages/Prof/Home.jsx';
+import LoginProf from './pages/Prof/Login.jsx';
+import ModulesProf from './pages/Prof/Modules.jsx';
+import CoursesProf from './pages/Prof/Courses.jsx';
+import QuizzsProf from './pages/Prof/Quizzs.jsx';
+import QuizzModulesProf from './pages/Prof/QuizzModules.jsx';
+import CalendarPageProf from './pages/Prof/CalendarPage.jsx';
+import AnnoncementsPageProf from './pages/Prof/AnnoncementsPage.jsx';
 
 /*
 // Prof pages (à créer si besoin)
@@ -30,19 +37,27 @@ import AdminFilieres from './pages/Admin/Filieres.jsx';
 import AdminCalendarPage from './pages/Admin/CalendarPage.jsx';
 import AdminAnnoncementsPage from './pages/Admin/AnnoncementsPage.jsx';
 */
-// Simple auth check using localStorage (set in Login)
+
+
 function RequireAuth({ children, allowedRoles }) {
   const location = useLocation();
   const isAuth = localStorage.getItem("isAuth") === "true";
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   if (!isAuth) {
+    
+    if (allowedRoles && allowedRoles.includes("prof")) {
+      return <Navigate to="/prof/login" state={{ from: location }} replace />;
+    }
+
+    if (allowedRoles && allowedRoles.includes("admin")) {
+      return <Navigate to="/admin/login" state={{ from: location }} replace />;
+    }
+    
     return <Navigate to="/etudiant/login" state={{ from: location }} replace />;
   }
 
-  // Si allowedRoles est défini, on vérifie le rôle
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    // Redirige selon le rôle de l'utilisateur
     if (user.role === "prof") return <Navigate to="/prof/" replace />;
     if (user.role === "admin") return <Navigate to="/admin/" replace />;
     return <Navigate to="/etudiant/" replace />;
@@ -50,6 +65,8 @@ function RequireAuth({ children, allowedRoles }) {
 
   return children;
 }
+
+
 
 // Redirection dynamique selon le rôle
 function RoleRedirect() {
@@ -66,6 +83,7 @@ function App() {
         <Routes>
           {/* Login */}
           <Route path="/etudiant/login" element={<Login />} />
+          <Route path="/prof/login" element={<LoginProf />} />
 
           {/* Etudiant */}
           <Route
@@ -94,6 +112,14 @@ function App() {
               <RequireAuth allowedRoles={["prof"]}>
                 <Routes>
                   <Route path="/" element={<HomeProf />} />
+                  <Route path="/cours/" element={<ModulesProf />} />
+                  <Route path="/cours/:moduleId" element={<CoursesProf/>} />
+                  <Route path="/quizz/:moduleId" element={<QuizzsProf />} />
+                  <Route path="/quizz/" element={<QuizzModulesProf />} />
+                  <Route path="/calendrier" element={<CalendarPageProf />} />
+                  <Route path="/announcements" element={<AnnoncementsPageProf />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="*" element={<HomeProf />} />
                   {/* Ajouter d'autres routes pour les pages du professeur ici */}
                   {/* <Route path="cours" element={<ProfCourses />} />
                   <Route path="quizz" element={<ProfQuizzs />} />

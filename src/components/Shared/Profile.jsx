@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import NavBar from "../../layouts/NavBar";
 import Footer from "../../layouts/footer";
-import { etudiant as etudiantData } from "../../services/data";
+import { users } from "../../services/data";
 
-function Profile({ etudiantId }) {
-  const initialEtudiant = etudiantData.id === etudiantId ? etudiantData : null;
+function Profile() {
+  // Récupérer l'utilisateur connecté depuis le localStorage
+  const userLS = JSON.parse(localStorage.getItem("user") || "null");
+  // Trouver l'objet user complet dans users (pour avoir toutes les infos à jour)
+  const userEntry = users.find((u) => u.user.email === userLS?.email);
+  const initialUser = userEntry ? userEntry.user : null;
 
-  const [etudiant, setEtudiant] = useState(initialEtudiant);
+  const [etudiant, setEtudiant] = useState(initialUser);
   const [motPasse, setMotPasse] = useState("");
   const [image, setImage] = useState(etudiant ? etudiant.image : "");
   const [message, setMessage] = useState("");
@@ -17,7 +21,7 @@ function Profile({ etudiantId }) {
         <NavBar />
         <div className="container mt-5">
           <div className="alert alert-danger text-center">
-            Étudiant introuvable.
+            Utilisateur introuvable.
           </div>
         </div>
         <Footer />
@@ -45,7 +49,7 @@ function Profile({ etudiantId }) {
     setEtudiant({
       ...etudiant,
       motPasse: motPasse ? motPasse : etudiant.motPasse,
-      image: image
+      image: image,
     });
     setMessage("Profil mis à jour !");
     setMotPasse("");
@@ -61,10 +65,16 @@ function Profile({ etudiantId }) {
             <form onSubmit={handleSubmit} className="card p-4">
               <div className="text-center mb-3">
                 <img
-                  src={etudiant.img || "https://via.placeholder.com/120"}
+                  src={
+                    image || etudiant.img || "https://via.placeholder.com/120"
+                  }
                   alt="Profil"
                   className="rounded-circle"
-                  style={{ width: "120px", height: "120px", objectFit: "cover" }}
+                  style={{
+                    width: "120px",
+                    height: "120px",
+                    objectFit: "cover",
+                  }}
                 />
               </div>
               <div className="mb-3 text-center">
@@ -75,15 +85,39 @@ function Profile({ etudiantId }) {
                   className="form-control"
                 />
               </div>
-              <div className="mb-3">
-                <label className="form-label">Code Apogée</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={etudiant.codeAppogee}
-                  disabled
-                />
-              </div>
+              {etudiant.codeAppogee && (
+                <div className="mb-3">
+                  <label className="form-label">Code Apogée</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={etudiant.codeAppogee}
+                    disabled
+                  />
+                </div>
+              )}
+              {etudiant.codeProf && (
+                <div className="mb-3">
+                  <label className="form-label">Code Prof</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={etudiant.codeProf}
+                    disabled
+                  />
+                </div>
+              )}
+              {etudiant.codeAdmin && (
+                <div className="mb-3">
+                  <label className="form-label">Code Admin</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={etudiant.codeAdmin}
+                    disabled
+                  />
+                </div>
+              )}
               <div className="mb-3">
                 <label className="form-label">Nom</label>
                 <input
@@ -134,7 +168,9 @@ function Profile({ etudiantId }) {
                 Mettre à jour
               </button>
               {message && (
-                <div className="alert alert-success mt-3 text-center">{message}</div>
+                <div className="alert alert-success mt-3 text-center">
+                  {message}
+                </div>
               )}
             </form>
           </div>

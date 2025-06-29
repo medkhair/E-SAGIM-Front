@@ -1,10 +1,22 @@
 import React from "react";
 import NavBar from "../../layouts/NavBar";
 import Footer from "../../layouts/footer";
+import { users } from "../../services/data";
 
 function Annocements({ annoncements }) {
+  // Associer chaque annoncement à son auteur complet
+  const getAuthor = (authorId) => {
+    const entry = users.find((u) => u.id === authorId);
+    return entry ? entry.user : null;
+  };
+
   // Trier les annoncements du plus récent au plus ancien
-  const sorted = [...annoncements].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sorted = [...annoncements]
+    .map((a) => ({
+      ...a,
+      authorObj: getAuthor(a.author),
+    }))
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
     <div className="content">
@@ -19,7 +31,16 @@ function Annocements({ annoncements }) {
                   <p className="card-text">{a.message}</p>
                   <div className="d-flex justify-content-between align-items-center">
                     <small className="text-muted">
-                      {a.author.role === "admin" ? "Admin" : "Prof"} : {a.author.name}
+                      {a.authorObj
+                        ? (a.authorObj.role === "admin"
+                            ? "Admin"
+                            : a.authorObj.role === "prof"
+                            ? "Prof"
+                            : "Étudiant"
+                          ) +
+                          " : " +
+                          (a.authorObj.nom || a.authorObj.name)
+                        : "Auteur inconnu"}
                     </small>
                     <small className="text-muted">{a.date}</small>
                   </div>

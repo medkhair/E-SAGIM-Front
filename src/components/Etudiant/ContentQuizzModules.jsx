@@ -20,8 +20,8 @@ function ContentModules({ modules }) {
                 />
                 <div className="card-body d-flex flex-column align-items-center justify-content-center">
                   <h5 className="card-title">{module.name}</h5>
-                  <Link to={`/quizz/${module.id}`} className="btn btn-primary mt-2">
-                    Voir cours
+                  <Link to={`/etudiant/quizz/${module.id}`} className="btn btn-primary mt-2">
+                    Voir Quizz
                   </Link>
                 </div>
               </div>

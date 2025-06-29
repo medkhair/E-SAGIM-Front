@@ -10,8 +10,7 @@ function ContentModules({ modules }) {
         <div className="row">
           {modules.map((module) => (
             <div className="col-md-4 mb-4" key={module.id}>
-              <div className="card h-100 d-flex flex-column align-items-center justify-content-center text-center">
-                {/* Miniature image (replace with your own or use a placeholder) */}
+              <div className="card h-100 d-flex flex-column align-items-center justify-content-center text-center">                
                 <img
                   src={`https://via.placeholder.com/400x200?text=${encodeURIComponent(module.name)}`}
                   className="card-img-top"
@@ -20,7 +19,7 @@ function ContentModules({ modules }) {
                 />
                 <div className="card-body d-flex flex-column align-items-center justify-content-center">
                   <h5 className="card-title">{module.name}</h5>
-                  <Link to={`/etudiant/cours/${module.id}`} className="btn btn-primary mt-2">
+                  <Link to={`/prof/cours/${module.id}`} className="btn btn-primary mt-2">
                     Voir cours
                   </Link>
                 </div>

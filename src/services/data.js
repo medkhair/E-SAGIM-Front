@@ -117,7 +117,7 @@ export const calendrier = [
   {
     day: "Mardi",
     courses: [
-      { heure: "09:00 - 11:00", module: 3, salle: "C3" }   // Archithecture
+      { heure: "09:00 - 11:00", module: 4, salle: "C3" }   // Archithecture
     ]
   },
   {
@@ -147,55 +147,19 @@ export const annoncements = [
   {
     id: 1,
     message: "Bienvenue sur la plateforme E-SAGIM !",
-    author: { role: "admin", name: "Administrateur" },
+    author: 1, // ID de l'utilisateur (admin)
     date: "2024-06-24"
   },
   {
     id: 2,
     message: "Le cours d'Algorithmique débutera lundi à 8h en salle A1.",
-    author: { role: "prof", name: "M. Benali" },
+    author: 0, // ID de l'utilisateur (prof)
     date: "2024-06-23"
   },
   {
     id: 3,
     message: "N'oubliez pas de réviser pour le quizz de Francais mercredi.",
-    author: { role: "prof", name: "Mme Dupont" },
-    date: "2024-06-22"
-  },
-  {
-    id: 4,
-    message: "Bienvenue sur la plateforme E-SAGIM !",
-    author: { role: "admin", name: "Administrateur" },
-    date: "2024-06-24"
-  },
-  {
-    id: 5,
-    message: "Le cours d'Algorithmique débutera lundi à 8h en salle A1.",
-    author: { role: "prof", name: "M. Benali" },
-    date: "2024-06-23"
-  },
-  {
-    id: 6,
-    message: "N'oubliez pas de réviser pour le quizz de Francais mercredi.",
-    author: { role: "prof", name: "Mme Dupont" },
-    date: "2024-06-22"
-  },
-  {
-    id: 7,
-    message: "Bienvenue sur la plateforme E-SAGIM !",
-    author: { role: "admin", name: "Administrateur" },
-    date: "2024-06-24"
-  },
-  {
-    id: 8,
-    message: "Le cours d'Algorithmique débutera lundi à 8h en salle A1.",
-    author: { role: "prof", name: "M. Benali" },
-    date: "2024-06-23"
-  },
-  {
-    id: 9,
-    message: "N'oubliez pas de réviser pour le quizz de Francais mercredi.",
-    author: { role: "prof", name: "Mme Dupont" },
+    author: 0,
     date: "2024-06-22"
   }
 ];
@@ -210,7 +174,7 @@ export const etudiant = {
   email: "souiba.mohammed@example.com",
   telephone: "+213600000000",
   motPasse: "motdepasse123",
-  role: "prof",
+  role: "etudiant",
   img: "../src/img/user.jpg"
 };
 
@@ -220,12 +184,13 @@ export const prof = {
   codeProf: "P12345678",
   nom: "El Amri",
   prenom: "Ahmed",
-  image: "img/user.jpg",
+  image: "../src/img/user.jpg",
   email: "ahmed.amri@example.com",
   telephone: "+213600000000",
   motPasse: "motdepasse123",
   role: "prof",
-  img: "../src/img/user.jpg"
+  img: "../src/img/user.jpg",
+  modules: [1, 3]
 };
 
 // Utilisateur Admin
@@ -241,3 +206,26 @@ export const admin = {
   role: "admin",
   img: "../src/img/user.jpg"
 };
+
+
+
+export const studentsResults = [
+  { quizzId: 1, studentName: "Ali", score: 8 },
+  { quizzId: 1, studentName: "Sara", score: 10 },
+  { quizzId: 2, studentName: "Yasmine", score: 7 }
+];
+
+export const users = [
+  {
+    id: 0,
+    user: prof
+  },
+  {
+    id: 1,
+    user: admin
+  },
+  {
+    id: 2,
+    user: etudiant
+  }
+];

@@ -7,7 +7,8 @@ function SideBar({ modules }) {
     nom: "",
     prenom: "",
     image: userImg,
-    role: "etudiant"
+    role: "etudiant",
+    modules: []
   });
 
   useEffect(() => {
@@ -19,19 +20,30 @@ function SideBar({ modules }) {
           nom: parsed.nom || "",
           prenom: parsed.prenom || "",
           image: parsed.image || userImg,
-          role: parsed.role || "etudiant"
+          role: parsed.role || "etudiant",
+          modules: parsed.modules || []
         });
       } catch {
         setUser({
           nom: "",
           prenom: "",
           image: userImg,
-          role: "etudiant"
+          role: "etudiant",
+          modules: []
         });
       }
     }
   }, []);
 
+  // filtrer les modules qu'ils enseignent
+  const profModules = user.role === "prof" && Array.isArray(user.modules)
+  ? modules.filter(m => user.modules.includes(m.id))
+  : [];
+
+    console.log("Modules for prof:", profModules);
+    console.log("User role:", user.role);
+  console.log("User modules:", user.modules);
+  console.log("User:", user);
   return (
     <>
       <div className="sidebar pe-4 pb-3">
@@ -45,7 +57,7 @@ function SideBar({ modules }) {
             <div className="position-relative">
               <img
                 className="rounded-circle"
-                src={user.img || userImg}
+                src={user.image ? user.image : userImg}
                 alt=""
                 style={{ width: "40px", height: "40px", objectFit: "cover" }}
               />
@@ -118,12 +130,46 @@ function SideBar({ modules }) {
                 <Link to="/prof/" className="nav-item nav-link active">
                   <i className="fa fa-tachometer-alt me-2"></i>Dashboard
                 </Link>
-                <Link to="/prof/cours" className="nav-item nav-link">
-                  <i className="fa fa-book me-2"></i>Mes Cours
-                </Link>
-                <Link to="/prof/quizz" className="nav-item nav-link">
-                  <i className="fa fa-question-circle me-2"></i>Mes Quizz
-                </Link>
+                <div className="nav-item dropdown">
+                  <a
+                    href="#"
+                    className="nav-link dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i className="fa fa-book me-2"></i>Cours
+                  </a>
+                  <div className="dropdown-menu bg-transparent border-0">
+                    {profModules.map((module) => (
+                      <Link
+                        key={module.id}
+                        to={`/prof/cours/${module.id}`}
+                        className="dropdown-item"
+                      >
+                        {module.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="nav-item dropdown">
+                  <a
+                    href="#"
+                    className="nav-link dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i className="fa fa-question-circle me-2"></i>Quizz
+                  </a>
+                  <div className="dropdown-menu bg-transparent border-0">
+                    {profModules.map((module) => (
+                      <Link
+                        key={module.id}
+                        to={`/prof/quizz/${module.id}`}
+                        className="dropdown-item"
+                      >
+                        {module.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
                 <Link to="/prof/calendrier" className="nav-item nav-link">
                   <i className="fa fa-calendar me-2"></i>Calendrier
                 </Link>
