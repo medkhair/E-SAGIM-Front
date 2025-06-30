@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "../../layouts/NavBar";
-import Footer from "../../layouts/footer";
+import Footer from "../../layouts/Footer";
 import { users } from "../../services/data";
 
 function Profile() {
